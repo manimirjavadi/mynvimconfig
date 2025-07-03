@@ -139,12 +139,12 @@ return {
 				},
 			},
 			setup = {
-				eslint = function()
-					vim.cmd([[ autocmd BufWritePre *.tsx,*.ts,*.jsx,*,js EslintFixAll ]])
-				end,
-			},
-		},
-	},
+                                eslint = function()
+                                        vim.cmd([[ autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll ]])
+                                end,
+                        },
+                },
+        },
 	{
 		"neovim/nvim-lspconfig",
 		opts = function()
