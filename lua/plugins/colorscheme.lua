@@ -1,77 +1,65 @@
--- Rose Pine - Soho vibes for cozy productivity
+-- Cyberdream - High-tech cyberpunk aesthetic
 return {
 	{
-		"rose-pine/neovim",
-		name = "rose-pine",
+		"scottmckendry/cyberdream.nvim",
 		lazy = true,
 		priority = 1000,
 		opts = {
-			variant = "moon", -- auto, main, moon, or dawn
-			dark_variant = "main", -- main, moon, or dawn
-			dim_inactive_windows = false,
-			extend_background_behind_borders = true,
+			-- Enable transparent background
+			transparent = true,
 
-			enable = {
-				terminal = true,
-				legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
-				migrations = true, -- Handle deprecated options automatically
-			},
+			-- Enable italics comments
+			italic_comments = true,
 
-			styles = {
-				bold = true,
-				italic = true,
-				transparency = true,
-			},
+			-- Replace all fillchars with ' ' for the ultimate clean look
+			hide_fillchars = false,
 
-			groups = {
-				border = "muted",
-				link = "iris",
-				panel = "surface",
+			-- Modern borderless telescope theme - also applies to fzf-lua
+			borderless_telescope = true,
 
-				error = "love",
-				hint = "iris",
-				info = "foam",
-				note = "pine",
-				todo = "rose",
-				warn = "gold",
+			-- Set terminal colors used in `:terminal`
+			terminal_colors = true,
 
-				git_add = "foam",
-				git_change = "rose",
-				git_delete = "love",
-				git_dirty = "rose",
-				git_ignore = "muted",
-				git_merge = "iris",
-				git_rename = "pine",
-				git_stage = "iris",
-				git_text = "rose",
-				git_untracked = "subtle",
+			-- Use caching to improve performance
+			cache = false, -- generate cache with :CyberdreamBuildCache and enable for better performance
 
-				headings = {
-					h1 = "iris",
-					h2 = "foam",
-					h3 = "rose",
-					h4 = "gold",
-					h5 = "pine",
-					h6 = "foam",
+			theme = {
+				variant = "default", -- use "light" for the light variant. Also accepts "auto" to set it based on vim.o.background
+				highlights = {
+					-- Highlight groups to override, adding new groups is also possible
+					-- See `:h highlight-groups` for a list of highlight groups or run `:hi` to see all groups and their current values
+
+					-- Example:
+					-- Comment = { fg = "#696969", bg = "NONE", italic = true },
+
+					-- Complete themes can be found in `lua/cyberdream/theme.lua`
+				},
+
+				-- Override a highlight group entirely using the color palette
+				overrides = function(colors) -- NOTE: This function nullifies the `highlights` option
+					-- Example:
+					return {
+						Comment = { fg = colors.green, bg = "NONE", italic = true },
+						["@property"] = { fg = colors.magenta, bold = true },
+					}
+				end,
+
+				-- Override a color entirely
+				colors = {
+					-- For a list of colors see `lua/cyberdream/colours.lua`
+					-- Example:
+					-- bg = "#000000",
+					-- green = "#00ff00",
 				},
 			},
 
-			highlight_groups = {
-				-- Comment = { fg = "foam" },
-				-- VertSplit = { fg = "muted", bg = "muted" },
+			-- Disable or enable colorscheme extensions
+			extensions = {
+				telescope = true,
+				notify = true,
+				mini = true,
+				-- ... other extensions
 			},
-
-			before_highlight = function(group, highlight, palette)
-				-- Disable all undercurls
-				-- if highlight.undercurl then
-				--     highlight.undercurl = false
-				-- end
-				--
-				-- Change palette colour
-				-- if highlight.fg == palette.pine then
-				--     highlight.fg = palette.foam
-				-- end
-			end,
 		},
 	},
 }
